@@ -13,6 +13,12 @@ hooks instead.
   * Files: if a Write or Edit puts a banned phrase into a file, Claude is
     told which phrase and file, and it rewords just that spot.
 
+Example (a real run, Claude told to say a banned phrase):
+
+  prompt:  Reply with exactly: "The cache is the load-bearing part of this design."
+  reply:   The cache is central to this design.
+  cost:    one extra short response (about $0.002 on Haiku)
+
 One file of plain Python, no dependencies, MIT.
 
 Install
