@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/phrasebook/phrasebook.py\"", "timeout": 10 } ] }
+    ],
+    "PostToolUse": [
+      { "matcher": "Write|Edit|MultiEdit",
+        "hooks": [ { "type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/phrasebook/phrasebook.py\" --edits", "timeout": 10 } ] }
+    ]
+  }
+}

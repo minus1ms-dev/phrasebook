@@ -1,0 +1,9 @@
+{
+  "name": "phrasebook",
+  "description": "Phrasebook: keep Claude Code from using the phrases you're tired of reading.",
+  "owner": { "name": "minus1ms", "url": "https://github.com/minus1ms-dev" },
+  "plugins": [
+    { "name": "phrasebook", "source": "./", "version": "1.0.0",
+      "description": "Ban phrases Claude overuses; Claude rewords its reply or file whenever one slips in." }
+  ]
+}
