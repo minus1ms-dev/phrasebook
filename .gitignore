@@ -3,3 +3,4 @@ __pycache__/
 stopgate/state/
 stopgate/sandbox/
 stopgate/*.log
+dist/
