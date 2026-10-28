@@ -56,6 +56,10 @@ Test
 ----
   python3 -m unittest discover -s tests -v
 
+Write-up
+--------
+How it works, step by step: https://dev.to/minus1ms/stop-claude-code-from-saying-load-bearing-with-a-tiny-hook-1oc0
+
 Support
 -------
 Phrasebook is free. If it saves your sanity, you can chip in:
