@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stop Claude Code from saying "load-bearing" | Phrasebook</title>
+<meta name="description" content="A tiny Claude Code hook that bans phrases like load-bearing, you're absolutely right and delve. Claude rewords instead.">
+<style>body{max-width:44rem;margin:2rem auto;padding:0 1rem;font:17px/1.6 system-ui,sans-serif;color:#222;background:#fff}code,pre{background:#f3f3f3;border-radius:4px}pre{padding:.8rem;overflow-x:auto}code{padding:.1rem .3rem}h1{line-height:1.2}</style></head><body>
+<h1>Stop Claude Code from saying "load-bearing" (with a tiny hook)</h1>
+<p>If you use Claude Code a lot, you've read "load-bearing" more times than you'd like, along with "You're absolutely right" and "delve". The upstream issue (<a href="https://github.com/anthropics/claude-code/issues/53454">anthropics/claude-code#53454</a>) has 120+ upvotes, and commenters measured it getting more frequent with longer contexts and newer models. Putting "never say load-bearing" in CLAUDE.md doesn't stick.</p>
+<h2>Why a hook works when instructions don't</h2>
+<p>Claude Code runs your hooks at fixed points. A <b>Stop</b> hook runs when Claude is about to end its turn. If it prints <code>{"decision":"block","reason":"..."}</code>, Claude keeps going and reads the reason as feedback. A <b>PostToolUse</b> hook that exits with code 2 sends its stderr back to Claude after a Write or Edit. So you don't need the model to remember a rule; you check its output and send it back when it slips.</p>
+<h2>Phrasebook</h2>
+<ul><li><b>Reply check:</b> if the final message contains a banned phrase, the stop is blocked once and Claude resends the same reply, reworded, without redoing any work. It retries at most once, so it can't loop.</li>
+<li><b>File check:</b> Write/Edit/MultiEdit content is scanned, and Claude is told which phrase in which file to reword.</li>
+<li><b>Matching</b> is case-insensitive and whole-word only, treats "load bearing" and "load-bearing" the same, accepts ' and ’, and allows regexes via lines starting with <code>re:</code>.</li></ul>
+<h2>A real run</h2>
+<pre>prompt: Reply with exactly: "The cache is the load-bearing part of this design."
+reply:  The cache is central to this design.
+cost:   one extra short response (about $0.002 on Haiku)</pre>
+<h2>Install</h2>
+<pre>/plugin install phrasebook --marketplace minus1ms-dev/phrasebook</pre>
+<p>Put your own list in <code>~/.claude/phrasebook.txt</code> (one phrase per line). <code>PHRASEBOOK_DISABLE=1</code> turns it off.</p>
+<p>Code (MIT): <a href="https://github.com/minus1ms-dev/phrasebook">github.com/minus1ms-dev/phrasebook</a>. It's free; if it saves your sanity, there's a <a href="https://minus1ms.gumroad.com/l/phrasebook">pay-what-you-want page</a>.</p>
+</body></html>
